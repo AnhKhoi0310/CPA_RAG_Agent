@@ -33,7 +33,6 @@ const PrivateBot: React.FC = () => {
   const backend = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
   const azureSearchEndpoint = process.env.REACT_APP_AZURE_SEARCH_ENDPOINT;
   const azureSearchKey = process.env.REACT_APP_AZURE_SEARCH_API_KEY;
-  const azureSearchIndex = process.env.REACT_APP_AZURE_SEARCH_INDEX_NAME || 'cpa-documents';
   
   const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null;
 
