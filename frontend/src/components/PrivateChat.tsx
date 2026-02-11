@@ -139,12 +139,12 @@ const PrivateChat: React.FC = () => {
           <div className="quick-links-section">
             <h2>Quick Access</h2>
             <div className="quick-links">
-              <a href="#" className="quick-link">📋 Internal Policies</a>
-              <a href="#" className="quick-link">⚖️ Compliance Guidelines</a>
-              <a href="#" className="quick-link">📞 Client Contact Database</a>
-              <a href="#" className="quick-link">📅 Tax Calendar & Deadlines</a>
-              <a href="#" className="quick-link">🔒 Security Protocols</a>
-              <a href="#" className="quick-link">💼 Training Resources</a>
+              <button className="quick-link">📋 Internal Policies</button>
+              <button className="quick-link">⚖️ Compliance Guidelines</button>
+              <button className="quick-link">📞 Client Contact Database</button>
+              <button className="quick-link">📅 Tax Calendar & Deadlines</button>
+              <button className="quick-link">🔒 Security Protocols</button>
+              <button className="quick-link">💼 Training Resources</button>
             </div>
           </div>
         </>
