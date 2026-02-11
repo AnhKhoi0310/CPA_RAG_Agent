@@ -16,7 +16,10 @@ const app = express();
 app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:3000', credentials: true, methods: ['GET','POST','OPTIONS'] }));
 app.use(express.json());
 
+// Session configuration - using MemoryStore for development
+// TODO: For production, use Redis or another persistent session store
 app.use(session({
+  store: new session.MemoryStore(),
   secret: process.env.SESSION_SECRET || 'dev-secret',
   resave: false,
   saveUninitialized: false,
@@ -183,6 +186,7 @@ let client;
       const requestBody = {
         vectorQueries: [
           {
+            kind: 'vector',
             vector: queryEmbedding,
             k: 5,
             fields: 'content_vector'
