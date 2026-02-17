@@ -5,7 +5,9 @@ const PublicChat: React.FC = () => {
   const backend = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
 
   const handleLogin = () => {
-    window.location.href = backend + '/auth/login';
+    // Ensure backend URL has protocol
+    const backendUrl = backend.startsWith('http') ? backend : `https://${backend}`;
+    window.location.href = `${backendUrl}/auth/login`;
   };
 
   const goToAgent = () => {

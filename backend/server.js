@@ -8,7 +8,21 @@ import cors from 'cors';
 let Issuer;
 let generators;
 
-dotenv.config();
+// Load .env file if it exists (for local development outside Docker)
+// In Docker, environment variables are provided by docker-compose env_file
+try {
+  dotenv.config();
+} catch (e) {
+  // Silent fail - env vars provided by docker-compose
+}
+
+// Debug: Log environment configuration
+console.log('Environment:', {
+  NODE_ENV: process.env.NODE_ENV,
+  OIDC_ISSUER: process.env.OIDC_ISSUER ? 'set' : 'NOT SET',
+  SESSION_SECRET: process.env.SESSION_SECRET ? 'set' : 'NOT SET',
+  AZURE_SEARCH_ENDPOINT: process.env.AZURE_SEARCH_ENDPOINT ? 'set' : 'NOT SET'
+});
 
 const app = express();
 
