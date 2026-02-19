@@ -30,7 +30,8 @@ const PrivateBot: React.FC = () => {
   const [isResizing, setIsResizing] = useState(false);
 
   const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
-  const backend = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
+  // Normalize backend URL - remove trailing slash
+  const backend = (process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000').replace(/\/$/, '');
   const azureSearchEndpoint = process.env.REACT_APP_AZURE_SEARCH_ENDPOINT;
   const azureSearchKey = process.env.REACT_APP_AZURE_SEARCH_API_KEY;
   
@@ -69,6 +70,7 @@ const PrivateBot: React.FC = () => {
           body: JSON.stringify({ text: 'test' })
         });
         setEmbeddingServiceAvailable(response.ok);
+        console.log('Embedding service available');
       } catch (e) {
         console.log('Embedding service not available, will use text search');
         setEmbeddingServiceAvailable(false);
@@ -242,7 +244,7 @@ IMPORTANT INSTRUCTIONS:
 - Always provide a useful answer - never just say you don't know without offering guidance.
 - Format your responses with proper spacing, bullet points, and structure for readability.
 - Use markdown formatting when appropriate (bold, lists, code blocks).`;
-    // console.log("context: ",retrievedContext);
+    console.log("context: ",retrievedContext);
     const fullPrompt = `Retrieved Context from Knowledge Base:
 ${retrievedContext}
 

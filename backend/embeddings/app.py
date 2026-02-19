@@ -7,9 +7,16 @@ app = Flask(__name__)
 CORS(app)
 
 # Load the embedding model
-print("Loading embedding model...")
-model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-print("Model loaded successfully!")
+model = None
+
+def get_model():
+    global model
+    if model is None:
+        print("Loading embedding model...")
+        model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+        print("Model loaded!")
+    return model
+
 
 @app.route('/health', methods=['GET'])
 def health():
@@ -21,7 +28,7 @@ def embed():
     """Generate embeddings for input text"""
     try:
         data = request.get_json()
-        
+        print("Received data for embedding: ", data)
         if not data or 'text' not in data:
             return jsonify({'error': 'Missing text field'}), 400
         
@@ -30,6 +37,8 @@ def embed():
         if not text or not isinstance(text, str):
             return jsonify({'error': 'Text must be a non-empty string'}), 400
         
+        model = get_model()
+
         # Generate embedding
         embedding = model.encode(text, normalize_embeddings=True)
         

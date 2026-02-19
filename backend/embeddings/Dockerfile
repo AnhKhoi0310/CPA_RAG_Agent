@@ -24,5 +24,5 @@ EXPOSE 5000
 ENV PORT=5000
 ENV PYTHONUNBUFFERED=1
 
-# Run the application
-CMD ["python", "app.py"]
+# Run the application with Gunicorn for production
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "--timeout", "120", "app:app"]

@@ -26,8 +26,13 @@ console.log('Environment:', {
 
 const app = express();
 
-// CORS for local dev (frontend running on :3000)
-app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:3000', credentials: true, methods: ['GET','POST','OPTIONS'] }));
+// CORS configuration - normalize frontend URL (remove trailing slash)
+const frontendUrl = (process.env.FRONTEND_URL || 'http://localhost:3000').replace(/\/$/, '');
+app.use(cors({ 
+  origin: frontendUrl, 
+  credentials: true, 
+  methods: ['GET','POST','OPTIONS','PUT','DELETE']
+}));
 app.use(express.json());
 
 // Session configuration - using MemoryStore for development
