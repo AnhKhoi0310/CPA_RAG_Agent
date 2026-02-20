@@ -8,7 +8,8 @@ const PrivateChat: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const backend = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
+  // Normalize backend URL - remove trailing slash
+  const backend = (process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000').replace(/\/$/, '');
 
   useEffect(() => {
     const fetchUser = async () => {

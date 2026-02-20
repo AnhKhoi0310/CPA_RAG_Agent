@@ -37,12 +37,18 @@ app.use(express.json());
 
 // Session configuration - using MemoryStore for development
 // TODO: For production, use Redis or another persistent session store
+const isProd = process.env.NODE_ENV === 'production' || process.env.FRONTEND_URL?.startsWith('https');
 app.use(session({
   store: new session.MemoryStore(),
   secret: process.env.SESSION_SECRET || 'dev-secret',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false }, // in production set secure:true and use HTTPS
+  cookie: { 
+    secure: isProd, // HTTPS only in production
+    httpOnly: true,
+    sameSite: isProd ? 'none' : 'lax', // 'none' required for cross-domain cookies
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }
 }));
 
 app.get('/', (req, res) => {
